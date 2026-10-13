@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSEC O Level Quiz</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f1f5f9;margin:0;padding:15px;color:#172033}
+.card{max-width:700px;margin:auto;background:white;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccd2dc}
+h1{text-align:center;color:#0756a8;font-size:25px}
+.sub{text-align:center;color:#475569}
+.q{padding:15px 0;border-bottom:1px solid #ddd}
+label{display:block;padding:9px;margin:5px 0;background:#f1f5f9;border-radius:7px;cursor:pointer}
+button{background:#0756a8;color:white;border:0;padding:12px 18px;border-radius:8px;font-size:16px;margin:8px 4px}
+#result{font-size:20px;font-weight:bold;text-align:center;margin:20px 0}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>NSEC Computer Institute</h1>
+<p class="sub">O Level M1-R5 | Hard MCQ Practice Test</p>
+<p><b>Total Questions:</b> 10 | <b>Marks:</b> 10</p>
+<p id="progress">Attempted: 0/10</p>
+<form id="quiz"></form>
+<div style="text-align:center">
+<button type="button" onclick="submitQuiz()">Submit Quiz</button>
+<button type="button" onclick="location.reload()">Try Again</button>
+</div>
+<div id="result"></div>
+<p class="sub">Learn Today, Lead Tomorrow!</p>
+</div>
+<script>
+const questions = [
+{q:"1. Which OSI layer is responsible for routing packets?",o:["Data Link","Network","Transport","Session"],a:1},
+{q:"2. Which SQL command removes all rows while keeping the table structure?",o:["DROP","DELETE DATABASE","TRUNCATE","REMOVE"],a:2},
+{q:"3. Which protocol securely transfers web pages?",o:["HTTP","FTP","HTTPS","SMTP"],a:2},
+{q:"4. In Python, what is the output of len({1,2,2,3})?",o:["4","3","2","Error"],a:1},
+{q:"5. Which memory is volatile?",o:["ROM","SSD","RAM","DVD"],a:2},
+{q:"6. Which SQL clause filters groups after aggregation?",o:["WHERE","ORDER BY","GROUP BY","HAVING"],a:3},
+{q:"7. What does DNS primarily do?",o:["Encrypts files","Maps domain names to IP addresses","Sends email","Assigns file permissions"],a:1},
+{q:"8. Which Python expression creates a list of squares for x from 0 to 3?",o:["[x*x for x in range(4)]","(x*x for x in range(4))","{x*x: range(4)}","square(range(4))"],a:0},
+{q:"9. Which key is commonly used to uniquely identify each row in a database table?",o:["Foreign key","Primary key","Duplicate key","Sort key"],a:1},
+{q:"10. Which LibreOffice Calc function counts cells meeting a condition?",o:["SUM","COUNTIF","AVERAGE","LEN"],a:1}
+];
+const form=document.getElementById("quiz");
+questions.forEach((q,i)=>{
+let d=document.createElement("div");d.className="q";
+d.innerHTML="<b>"+q.q+"</b>";
+q.o.forEach((op,j)=>{
+d.innerHTML+='<label><input type="radio" name="q'+i+'" value="'+j+'"> '+String.fromCharCode(65+j)+". "+op+"</label>";
+});
+form.appendChild(d);
+});
+form.addEventListener("change",()=>{
+let n=questions.filter((q,i)=>document.querySelector('input[name="q'+i+'"]:checked')).length;
+document.getElementById("progress").textContent="Attempted: "+n+"/10";
+});
+function submitQuiz(){
+let score=0,attempt=0;
+questions.forEach((q,i)=>{
+let el=document.querySelector('input[name="q'+i+'"]:checked');
+if(el){attempt++;if(Number(el.value)===q.a)score++;}
+});
+document.getElementById("result").innerHTML=
+"Your Score: "+score+"/10<br>Attempted: "+attempt+"/10<br>"+(score>=8?"Excellent work!":"Keep practising!");
+document.querySelectorAll('input').forEach(el=>el.disabled=true);
+}
+</script>
+</body>
+</html>
